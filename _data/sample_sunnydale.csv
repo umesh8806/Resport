@@ -1,0 +1,11 @@
+roll_number,student_name,date_of_birth,class_name,division,SUB-ENG,SUB-MATH,SUB-SCI,SUB-HIS
+SD-001,Buffy Summers,2009-01-19,9,1,85,75,90,82
+SD-002,Willow Rosenberg,2009-05-12,9,1,98,99,97,95
+SD-003,Xander Harris,2009-08-30,9,1,65,55,60,70
+SD-004,Rupert Giles,2009-02-05,9,1,92,85,88,98
+SD-005,Cordelia Chase,2009-11-22,9,2,80,72,75,85
+SD-006,Angel,2009-04-15,9,2,75,80,78,90
+SD-007,Spike,2009-10-31,9,2,60,65,62,75
+SD-008,Anya Jenkins,2009-07-04,9,2,88,95,85,80
+SD-009,Tara Maclay,2009-03-18,9,3,90,85,92,88
+SD-010,Dawn Summers,2009-12-25,9,3,78,75,70,82

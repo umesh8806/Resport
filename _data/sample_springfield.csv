@@ -1,0 +1,13 @@
+roll_number,student_name,date_of_birth,class_name,division,SUB-ENG,SUB-MATH,SUB-SCI,SUB-HIS
+S1-001,Alice Johnson,2008-04-12,10,A,85,92,88,76
+S1-002,Bob Smith,2008-05-23,10,A,72,68,75,82
+S1-003,Charlie Brown,2008-02-14,10,A,95,98,91,89
+S1-004,Diana Prince,2008-08-30,10,A,88,85,92,94
+S1-005,Evan Wright,2008-11-05,10,B,45,55,60,50
+S1-006,Fiona Gallagher,2008-01-19,10,B,78,82,79,85
+S1-007,George Miller,2008-09-09,10,B,65,70,68,72
+S1-008,Hannah Abbott,2008-12-01,10,B,92,88,95,90
+S1-009,Ian Malcolm,2008-03-15,10,C,81,85,82,78
+S1-010,Julia Child,2008-07-22,10,C,89,91,86,92
+S1-011,Kevin Hart,2008-10-10,10,C,60,58,62,65
+S1-012,Laura Croft,2008-06-05,10,C,98,95,96,94
