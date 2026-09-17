@@ -12,21 +12,24 @@ export function ResultActions({ resultId, studentName }: { resultId: string, stu
   const handleDownloadPDF = async () => {
     setDownloading(true)
     try {
-      const html2pdfModule = await import('html2pdf.js')
-      const html2pdf = html2pdfModule.default || html2pdfModule
+      const html2canvas = (await import('html2canvas-pro')).default
+      const { jsPDF } = await import('jspdf')
       
       const element = document.getElementById('printable-result-card')
       if (!element) throw new Error('Result card not found')
 
-      const opt: any = {
-        margin:       10,
-        filename:     `Result_${studentName || resultId}.pdf`,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      }
-
-      await html2pdf().set(opt).from(element).save()
+      // Capture the element using html2canvas-pro (which supports oklch and lab colors)
+      const canvas = await html2canvas(element, { scale: 2, useCORS: true })
+      const imgData = canvas.toDataURL('image/jpeg', 0.98)
+      
+      // Initialize jsPDF and fit the image onto an A4 page
+      const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' })
+      const margin = 10
+      const pdfWidth = pdf.internal.pageSize.getWidth() - (margin * 2)
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width
+      
+      pdf.addImage(imgData, 'JPEG', margin, margin, pdfWidth, pdfHeight)
+      pdf.save(`Result_${studentName || resultId}.pdf`)
     } catch (err: any) {
       console.error('PDF Generation failed', err)
       alert(`Failed to generate PDF: ${err?.message || String(err)}\n\nThe page will now refresh. You can also try using the Print button and selecting "Save as PDF".`)
