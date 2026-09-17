@@ -12,7 +12,8 @@ export function ResultActions({ resultId, studentName }: { resultId: string, stu
   const handleDownloadPDF = async () => {
     setDownloading(true)
     try {
-      const html2pdf = (await import('html2pdf.js')).default
+      const html2pdfModule = await import('html2pdf.js')
+      const html2pdf = html2pdfModule.default || html2pdfModule
       
       const element = document.getElementById('printable-result-card')
       if (!element) throw new Error('Result card not found')
@@ -26,9 +27,9 @@ export function ResultActions({ resultId, studentName }: { resultId: string, stu
       }
 
       await html2pdf().set(opt).from(element).save()
-    } catch (err) {
+    } catch (err: any) {
       console.error('PDF Generation failed', err)
-      alert('Failed to generate PDF. The page will now refresh. You can also try using the Print button and selecting "Save as PDF".')
+      alert(`Failed to generate PDF: ${err?.message || String(err)}\n\nThe page will now refresh. You can also try using the Print button and selecting "Save as PDF".`)
       window.location.reload()
     } finally {
       setDownloading(false)
