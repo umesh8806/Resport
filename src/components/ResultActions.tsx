@@ -28,9 +28,12 @@ export function ResultActions({ resultId, studentName }: { resultId: string, stu
       await html2pdf().set(opt).from(element).save()
     } catch (err) {
       console.error('PDF Generation failed', err)
-      alert('Failed to generate PDF. You can also try using the Print button and selecting "Save as PDF".')
+      alert('Failed to generate PDF. The page will now refresh. You can also try using the Print button and selecting "Save as PDF".')
+      window.location.reload()
     } finally {
       setDownloading(false)
+      // Cleanup any leftover overlays that might block clicks if reload is prevented
+      document.querySelectorAll('.html2pdf__container, .html2canvas-container').forEach(el => el.remove())
     }
   }
 

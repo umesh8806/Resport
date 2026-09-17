@@ -100,7 +100,7 @@ export default async function ResultPage({ params }: { params: { id: string } })
   `
 
   // 3. Inject Variables
-  const compiledHtml = templateStr
+  let compiledHtml = templateStr
     .replace(/\{\{school_name\}\}/g, school.school_name || '')
     .replace(/\{\{school_address\}\}/g, school.address || '')
     .replace(/\{\{exam_name\}\}/g, exam?.exam_name || '')
@@ -116,6 +116,9 @@ export default async function ResultPage({ params }: { params: { id: string } })
     .replace(/\{\{grade\}\}/g, result.grade || 'N/A')
     .replace(/\{\{result_status\}\}/g, result.result_status || 'N/A')
     .replace(/\{\{marks_table\}\}/g, marksHtml)
+
+  // Try to avoid html2canvas tainted canvas issues with external images
+  compiledHtml = compiledHtml.replace(/<img /gi, '<img crossorigin="anonymous" ')
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-8">
