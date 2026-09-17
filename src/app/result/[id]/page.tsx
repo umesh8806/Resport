@@ -3,6 +3,11 @@ import { notFound } from 'next/navigation'
 
 import { ResultActions } from '@/components/ResultActions'
 
+// Cache this page for 1 hour (3600 seconds) on Vercel's global CDN.
+// This allows the portal to handle tens of thousands of concurrent users
+// without overwhelming the Supabase database.
+export const revalidate = 3600 
+
 export default async function ResultPage({ params }: { params: { id: string } }) {
   const { id } = await params
   
