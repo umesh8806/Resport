@@ -23,7 +23,7 @@ export default async function ResultPage({ params }: { params: { id: string } })
       published_at,
       calculation_version,
       metadata,
-      students!inner ( roll_number, student_name, class_name, division, date_of_birth, schools!inner (id, school_name, logo_url, address, status) ),
+      students!inner ( roll_number, student_name, class_name, division, date_of_birth, mobile_number, schools!inner (id, school_name, logo_url, address, status) ),
       exams ( exam_name, academic_years (name) ),
       result_marks (
         marks_obtained,
@@ -115,6 +115,7 @@ export default async function ResultPage({ params }: { params: { id: string } })
     .replace(/\{\{class_name\}\}/g, student.class_name || '')
     .replace(/\{\{division\}\}/g, student.division ? `- ${student.division}` : '')
     .replace(/\{\{date_of_birth\}\}/g, new Date(student.date_of_birth).toLocaleDateString())
+    .replace(/\{\{mobile_number\}\}/g, student.mobile_number || 'N/A')
     .replace(/\{\{total_marks\}\}/g, result.total_marks !== null ? String(result.total_marks) : 'N/A')
     .replace(/\{\{maximum_marks\}\}/g, result.maximum_marks !== null ? String(result.maximum_marks) : 'N/A')
     .replace(/\{\{percentage\}\}/g, result.percentage !== null ? String(result.percentage) : 'N/A')

@@ -82,6 +82,7 @@ export async function superAdminGlobalImportAction(
         date_of_birth: dob || null,
         class_name: String(row['class_name'] || '').trim() || 'Unspecified',
         division: String(row['division'] || '').trim() || 'A',
+        mobile_number: String(row['mobile_number'] || '').trim() || null,
         status: 'ACTIVE'
       })
       

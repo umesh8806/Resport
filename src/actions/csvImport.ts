@@ -112,6 +112,7 @@ export async function validateCsvAction(
       date_of_birth: dob,
       class_name: className,
       division: String(row['division'] || '').trim(),
+      mobile_number: String(row['mobile_number'] || '').trim() || null,
       marks: marksObj,
       calculated: { ...calc, calculation_version: rules[0]?.version || 1 }
     })

@@ -171,3 +171,51 @@ export async function getPublicFormOptions() {
     exams: exams.data || []
   }
 }
+
+export async function fetchStudentsByMobile(schoolId: string, mobileNumber: string) {
+  const identifier = getIdentifier('mobile', schoolId, mobileNumber)
+  if (!checkRateLimit(identifier)) {
+    return { error: 'Too many requests. Please try again in a minute.' }
+  }
+
+  const { data: students, error: studentError } = await supabaseAdmin
+    .from('students')
+    .select('id, student_name, class_name, roll_number')
+    .eq('school_id', schoolId)
+    .eq('mobile_number', mobileNumber.trim())
+    .eq('status', 'ACTIVE')
+
+  if (studentError || !students || students.length === 0) {
+    return { error: 'No active student found with this mobile number.' }
+  }
+
+  return { success: true, students }
+}
+
+export async function fetchResultsByStudentId(studentId: string) {
+  const { data: results, error: resultError } = await supabaseAdmin
+    .from('results')
+    .select(`
+      id,
+      published_at,
+      exams ( exam_name, academic_years (name) )
+    `)
+    .eq('student_id', studentId)
+    .eq('publication_status', 'PUBLISHED')
+    .order('published_at', { ascending: false })
+
+  if (resultError || !results || results.length === 0) {
+    return { error: 'No published result found for this student.' }
+  }
+
+  return {
+    success: true,
+    results: results.map((r: any) => ({
+      id: r.id,
+      exam_name: r.exams?.exam_name,
+      academic_year: r.exams?.academic_years?.name,
+      published_at: r.published_at
+    }))
+  }
+}
+

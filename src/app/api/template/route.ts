@@ -19,7 +19,7 @@ export async function GET(req: Request) {
   }
 
   // Define required columns
-  const baseColumns = ['roll_number', 'student_name', 'date_of_birth', 'class_name', 'division']
+  const baseColumns = ['roll_number', 'student_name', 'date_of_birth', 'class_name', 'division', 'mobile_number']
   
   if (isGlobal) {
     baseColumns.unshift('school_code')

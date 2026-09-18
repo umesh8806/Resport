@@ -58,12 +58,13 @@ export default function StudentsPage() {
               <TableHead>Class</TableHead>
               <TableHead>Division</TableHead>
               <TableHead>DOB</TableHead>
+              <TableHead>Mobile</TableHead>
               <TableHead>Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {loading ? (
-              <TableRow><TableCell colSpan={6} className="text-center">Loading...</TableCell></TableRow>
+              <TableRow><TableCell colSpan={7} className="text-center">Loading...</TableCell></TableRow>
             ) : students.map(s => (
               <TableRow key={s.id}>
                 <TableCell className="font-medium">{s.roll_number}</TableCell>
@@ -71,6 +72,7 @@ export default function StudentsPage() {
                 <TableCell>{s.class_name}</TableCell>
                 <TableCell>{s.division || '-'}</TableCell>
                 <TableCell>{new Date(s.date_of_birth).toLocaleDateString()}</TableCell>
+                <TableCell>{s.mobile_number || '-'}</TableCell>
                 <TableCell>
                   <span className="px-2 py-1 rounded text-xs font-semibold bg-green-100 text-green-800">
                     {s.status}
@@ -79,7 +81,7 @@ export default function StudentsPage() {
               </TableRow>
             ))}
             {students.length === 0 && !loading && (
-              <TableRow><TableCell colSpan={6} className="text-center text-gray-500">No students found.</TableCell></TableRow>
+              <TableRow><TableCell colSpan={7} className="text-center text-gray-500">No students found.</TableCell></TableRow>
             )}
           </TableBody>
         </Table>
